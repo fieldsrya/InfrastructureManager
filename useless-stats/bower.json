@@ -1,0 +1,14 @@
+{
+  "name": "useless-stats",
+  "description": "Display database statistics",
+  "version": "0.0.1",
+  "homepage": "https://github.uc.edu/fieldsry/useless-stats",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "1.5.x",
+    "angular-mocks": "1.5.x",
+    "bootstrap": "3.3.x",
+    "angular-chart": "^0.5.0"
+  }
+}

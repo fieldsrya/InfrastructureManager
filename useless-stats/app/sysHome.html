@@ -1,0 +1,44 @@
+<html lang="en" ng-app="statsApp">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="bower_components/angular-datatables/dist/css/angular-datatables.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="app.css" />
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+  <script src="bower_components/angular-datatables/dist/angular-datatables.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="app.js"></script>
+</head>
+<body ng-controller="SysStatsController">
+<div class="container-fluid">
+  <p>
+    <b>Go To.. </b>
+    <a href="dbHome">DB Home</a>
+  </p>
+  <table datatable="ng" class="table table-condensed table-bordered table-striped hover">
+  <thead>
+    <tr>
+      <th>VM Name</th>
+      <th>Power State</th>
+      <th>Config Status</th>
+      <th>Cluster Name</th>
+      <th>Physical Host Name</th>
+      <th>Data Center</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="vm in machines">
+      <td><a href="ext-vmstats?vmName={{vm.VGUEST_NAME}}">{{vm.VGUEST_NAME}}</a></td>
+      <td>{{vm.POWERSTATE}}</td>
+      <td>{{vm.CONFIG_STATUS}}</td>
+      <td>{{vm.VCLUSTER_NAME}}</td>
+      <td>{{vm.VHOST_NAME}}</td>
+      <td>{{vm.DATACENTER_NAME}}</td>
+    </tr>
+  </tbody>
+  </table>
+</div>
+</body>
+</html>

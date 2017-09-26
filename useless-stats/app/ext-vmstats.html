@@ -1,0 +1,78 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="bower_components/angular-datatables/dist/css/angular-datatables.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="app.css" />
+  <link rel="stylesheet" href="bower_components/c3/c3.css" />
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+  <script src="bower_components/angular-datatables/dist/angular-datatables.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="app.js"></script> 
+  <script src="bower_components/d3/d3.js"></script>
+  <script src="bower_components/c3/c3.js"></script>
+  <script src="bower_components/angular-chart/angular-chart.js"></script>
+</head>
+<body ng-app="statsApp">
+  <p>
+    <b>Go To .. </b><a href="dbHome.html" onclick="location.reload()">DB Home</a> | <a href="sysHome" onclick="location.reload()">Sys Home</a>
+  <p>
+<div ng-controller="ExtVMStatsController">
+
+  <table datatable="ng" class="table table-condensed table-bordered table-striped hover">
+   <caption><center><h2>Virtual Machine Config Details</h2></center></caption>
+   <thead>
+     <tr> 
+      <th>Guest Name</th>
+      <th>CPU Count</th>
+      <th>Memory</th>
+      <th>Disk Provisioned</th> 
+      <th>Disk Used</th>
+      <th>Disk Free</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="value in vmstats">
+      <td>{{value.GUEST_NAME}}</td>
+      <td>{{value.CPUS}}</td>
+      <td>{{value.MEMORY_MB}}</td>
+      <td>{{value.PROVISIONED_GB}}</td>
+      <td>{{value.USED_GB}}</td>
+      <td>{{value.FREE_SPACE_GB}}</td>
+    </tr>
+  </tbody>
+  </table>
+
+  <table datatable="ng" class="table table-condensed table-bordered table-striped hover">
+   <caption><center><h2>NMap Scan Details</h2></center></caption>
+   <thead>
+     <tr>
+      <th>Ip Address</th>
+      <th>Port Number</th>
+      <th>Service Name</th>
+      <th>Service Product</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="value in vmNmap">
+      <td>{{value.IP_ADDR}}</td>
+      <td>{{value.PORT_NUM}}</td>
+      <td>{{value.SERVICE_NAME}}</td>
+      <td>{{value.SERVICE_PRODUCT}}</td>
+    </tr>
+  </tbody>
+  </table>
+
+
+</div>
+
+
+<!--
+<div ng-controller="ChartController">
+  <angular-chart options="options" instance="instance"></angular-chart>
+</div>
+-->
+
+</body>

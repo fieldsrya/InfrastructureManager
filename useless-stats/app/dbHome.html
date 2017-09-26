@@ -1,0 +1,45 @@
+<html lang="en" ng-app="statsApp">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="bower_components/angular-datatables/dist/css/angular-datatables.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="app.css" />
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+  <script src="bower_components/angular-datatables/dist/angular-datatables.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="app.js"></script>
+</head>
+<body ng-controller="StatsListController">
+<div class="container-fluid">
+  <p>
+    <b>Go To.. </b><a href="sysHome.html">Sys Home</a>
+  </p>
+  <table datatable="ng" class="table table-condensed table-bordered table-striped hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Table Count</th>
+      <th>Row Count</th>
+      <th>MB Free</th>
+      <th>MB Used</th>
+      <th>MB Allocated</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="db in databases">
+      <td><a href="ext-stats?dbName={{db.DBNAME}}">{{db.DBNAME}}</a></td>
+      <td>{{db.TABLE_COUNT}}</td>
+      <td>{{db.ROW_COUNT}}</td>
+      <td>{{db.MB_FREE}}</td>
+      <td>{{db.MB_USED}}</td>
+      <td>{{db.MB_ALLOCATED}}</td>
+      <td>{{db.AS_OF_DATE}}</td>
+    </tr>
+  </tbody>
+  </table>
+</div>
+</body>
+</html>

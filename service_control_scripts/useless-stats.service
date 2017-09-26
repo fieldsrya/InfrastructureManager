@@ -1,0 +1,14 @@
+[Unit]
+Description=Infrastructure Manager Web Server
+
+[Service]
+ExecStart=/home/oracle/start-useless-stats-all.sh
+Restart=always
+User=oracle
+Group=oracle
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=NODE_ENV=production
+WorkingDirectory=/opt/oracle/projects/useless-stats
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,100 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="bower_components/angular-datatables/dist/css/angular-datatables.css" />
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="app.css" />
+  <link rel="stylesheet" href="bower_components/c3/c3.css" />
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+  <script src="bower_components/angular-datatables/dist/angular-datatables.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="app.js"></script> 
+  <script src="bower_components/d3/d3.js"></script>
+  <script src="bower_components/c3/c3.js"></script>
+  <script src="bower_components/angular-chart/angular-chart.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body ng-app="statsApp">
+<div class="container-fluid" ng-controller="ExtStatsController">
+  <p>
+    <b>Go To .. </b><a href="dbHome.html" onclick="location.reload()">DB Home</a> | <a href="sysHome" onclick="location.reload()">Sys Home</a>
+  <p>
+
+  <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+	var data_array = $('[ng-controller="ExtStatsController"]').scope().databases;
+	var num_data_array = new Array;
+	for(var i = 0, len = data_array.length; i < len; i++) {
+	  var cnv_num = data_array[i].map(Number);
+	  num_data_array.push(cnv_num);
+	}
+	var data = new google.visualization.DataTable();
+	data.addColumn('number', 'Date');
+	data.addColumn('number', 'Row Count');
+	data.addColumn('number', 'Size in MB');
+	data.addRows(num_data_array);
+
+        var options = {
+          title: 'Database Growth',
+          curveType: 'function',
+	  animation: { 
+	    duration: 1000,
+	    easing: 'linear',
+	    startup: true
+	  },
+	  series: {
+	    0: {targetAxisIndex: 0},
+            1: {targetAxisIndex: 1}
+	  },
+	  vAxes: {
+	      0: {title: 'Row Count'},
+	      1: {title: 'Size(MB)'}
+	  },
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+
+      function change() // no ';' here
+      {
+        var elem = document.getElementById("graphControl");
+        if (elem.value == "Hide Graph") elem.value = "Show Graph";
+        else if (elem.value == "Show Graph") elem.value = "Hide Graph";
+      }
+  </script>
+
+
+    <!--<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#curve_chart">Collapse Graph</button> -->
+  <input onclick="change()" type="button" class="btn btn-info" data-toggle="collapse" data-target="#curve_chart" id="graphControl" value="Hide Graph"></input>
+  <div id="curve_chart" class="collapse in" style="width: 90%; height: 500px"></div>
+
+  <table datatable="ng" class="table table-condensed table-bordered table-striped hover">
+   <caption><center><h2>Non-default Initialization Parameters</h2></center></caption>
+   <thead>
+     <tr> 
+      <th>Parameter Name</th>
+      <th>Value</th>
+      <th>Instance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="param in dbparameters">
+      <td>{{param.PARAMETER_NAME}}</td>
+      <td>{{param.PARAMETER_VALUE}}</td>
+      <td>{{param.DB_INSTANCE}}</td>
+    </tr>
+  </tbody>
+  </table>
+</div>
+
+
+</body>
